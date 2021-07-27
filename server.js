@@ -14,7 +14,8 @@ app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 20
 app.use(express.static('public'));
 
 app.get("/api/:date?", function(req, res) {
-    let _date = req.params.date ? (new Date(req.params.date.includes("-") ? req.params.date : parseInt(req.params.date))) : new Date();
+    let dateString = req.params.date.replace(" ", "-");
+    let _date = dateString ? (new Date(dateString.includes("-") ? dateString : parseInt(dateString))) : new Date();
 
   if (_date.toUTCString() === "Invalid Date") {
         res.json({
