@@ -1,10 +1,16 @@
 const express = require("express");
 const app = express();
 
-app.get('api/:date?', function(req, res) {
+app.get('/api/:date?', function(req, res, next) {
+    req.time = new Date().toString();
+    next();
+  }, function(req, res) {
+    console.log(req.params.date);
     let _date = req.params.date ? new Date(req.params.date) : new Date();
 
-    if (_date == null) {
+    console.log(_date);
+
+if (_date === null) {
         res.json({
             "error": "Invalid Date"
         });
